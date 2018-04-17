@@ -9,7 +9,6 @@ var warningLevelSettingElement = document.querySelector(".warningLevelSetting");
 var criticalLevelSettingElement = document.querySelector(".criticalLevelSetting");
 //get a reference to the add button
 var radioBillAddButtonElement = document.querySelector(".radioBillAddButton");
-// console.log(radioBillAddButton);
 //get a reference to the 'Update settings' button
 var updateSettingsElement = document.querySelector(".updateSettings")
 // create a variables that will keep track of all the settings
@@ -21,18 +20,28 @@ var criticalLevel = 0;
 var callCostTotal = 0;
 var smsCostTotal = 0;
 //add an event listener for when the 'Update settings' button is pressed
+function billSettings() {
+  var textboxcall = callCostSettingElement.value;
+  var textboxsms = smsCostSettingElement.value;
+  var textboxwarning = warningLevelSettingElement.value;
+  var textboxcritical = criticalLevelSettingElement.value;
 
-// updateSettingsBtnElement.addEventListener('click', )
+  callCost = parseFloat(textboxcall);
+  smsCost = parseFloat(textboxsms);
+  warningLevel = parseFloat(textboxwarning);
+  criticalLevel = parseFloat(textboxcritical);
+}
+updateSettingsElement.addEventListener('click',billSettings)
 //add an event listener for when the add button is pressed
 function radioSettingsBill() {
   var checkedRadio = document.querySelector("input[name='billItemTypeWithSettings']:checked");
   if (checkedRadio){
       var billType = checkedRadio.value
       if (billType === "call"){
-          callCostTotal += 2.75;
+          callCostTotal += callCost;
       }
       else if (billType === "sms"){
-          smsCostTotal += 0.75;
+          smsCostTotal += smsCost;
       }
   }
     callTotalThreeElement.innerHTML = callCostTotal.toFixed(2);
