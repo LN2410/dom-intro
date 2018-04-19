@@ -32,43 +32,48 @@ function billSettings() {
   warningLevel = parseFloat(textboxwarning);
   criticalLevel = parseFloat(textboxcritical);
 
-  // if (totalCostThree <= criticalLevel && totalCostThree >= warningLevel) {
-  //   totalThreeElement.classList.remove("danger");
-  //   totalThreeElement.classList.add("warning");
-  // }
   if (totalCostThree <= criticalLevel) {
+    totalThreeElement.classList.remove("danger");
     radioBillAddButtonElement.disabled = false;
   }
-   
+  if (totalCostThree <= warningLevel) {
+    totalThreeElement.classList.remove("warning");
+  }
 }
 updateSettingsElement.addEventListener('click',billSettings)
 //add an event listener for when the add button is pressed
 function radioSettingsBill() {
   var checkedRadio = document.querySelector("input[name='billItemTypeWithSettings']:checked");
   if (checkedRadio){
-      var billType = checkedRadio.value
+    var billType = checkedRadio.value}
+
+
+    if (totalCostThree >= criticalLevel) {
+
+    }
+    else {
+
       if (billType === "call"){
           callCostTotal += callCost;
       }
       else if (billType === "sms"){
           smsCostTotal += smsCost;
       }
-  }
+    }
     callTotalThreeElement.innerHTML = callCostTotal.toFixed(2);
     smsTotalThreeElement.innerHTML = smsCostTotal.toFixed(2);
     var totalCostThree = smsCostTotal + callCostTotal;
     totalThreeElement.innerHTML = totalCostThree.toFixed(2);
 // color change
-if (totalCostThree >= criticalLevel){
+if (totalCostThree >= criticalLevel) {
   totalThreeElement.classList.add("danger");
-  radioBillAddButtonElement.disabled = true;
+ radioBillAddButtonElement.disabled = true;
 }
-else if (totalCostThree >= warningLevel){
+else if (totalCostThree >= warningLevel) {
   totalThreeElement.classList.add("warning");
 }
-else {
-  totalThreeElement.classList.remove("warning");
-  totalThreeElement.classList.remove("danger");
-}
+// else {
+//   radioBillAddButtonElement.disabled = false;
+// }
 }
 radioBillAddButtonElement.addEventListener('click', radioSettingsBill);
