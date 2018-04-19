@@ -14,7 +14,10 @@
   color: red;
   font-weight: bold;
 }
-
+.normal {
+  color: black;
+  font-weight: bold;
+}
 .total {
   font-weight: bold;
   font-size: 2em;

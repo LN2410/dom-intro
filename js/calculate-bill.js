@@ -33,6 +33,10 @@ function calculateBtnClicked(){
     else if (roundedBillTotal >= 30.00){
         billTotalElement.classList.add('danger');
       }
+      else{
+          billTotalElement.classList.remove('danger');
+          billTotalElement.classList.remove('warning');
+      }
 }
     //link the function to a click event on the calculate button
 calculateBtnElement.addEventListener('click', calculateBtnClicked);

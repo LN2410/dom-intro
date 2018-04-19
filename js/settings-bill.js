@@ -19,6 +19,7 @@ var criticalLevel = 0;
 // create a variables that will keep track of all three totals.
 var callCostTotal = 0;
 var smsCostTotal = 0;
+var totalCostThree = 0;
 //add an event listener for when the 'Update settings' button is pressed
 function billSettings() {
   var textboxcall = callCostSettingElement.value;
@@ -30,6 +31,15 @@ function billSettings() {
   smsCost = parseFloat(textboxsms);
   warningLevel = parseFloat(textboxwarning);
   criticalLevel = parseFloat(textboxcritical);
+
+  // if (totalCostThree <= criticalLevel && totalCostThree >= warningLevel) {
+  //   totalThreeElement.classList.remove("danger");
+  //   totalThreeElement.classList.add("warning");
+  // }
+  if (totalCostThree <= criticalLevel) {
+    radioBillAddButtonElement.disabled = false;
+  }
+   
 }
 updateSettingsElement.addEventListener('click',billSettings)
 //add an event listener for when the add button is pressed
@@ -46,14 +56,19 @@ function radioSettingsBill() {
   }
     callTotalThreeElement.innerHTML = callCostTotal.toFixed(2);
     smsTotalThreeElement.innerHTML = smsCostTotal.toFixed(2);
-  var totalCostThree = smsCostTotal + callCostTotal;
-  totalThreeElement.innerHTML = totalCostThree.toFixed(2);
+    var totalCostThree = smsCostTotal + callCostTotal;
+    totalThreeElement.innerHTML = totalCostThree.toFixed(2);
 // color change
-// if (totalCostTwo >= 50.00){
-//   totalTwoElement.classList.add("danger");
-// }
-// else if (totalCostTwo >= 30.00){
-//   totalTwoElement.classList.add("warning");
-// }
+if (totalCostThree >= criticalLevel){
+  totalThreeElement.classList.add("danger");
+  radioBillAddButtonElement.disabled = true;
+}
+else if (totalCostThree >= warningLevel){
+  totalThreeElement.classList.add("warning");
+}
+else {
+  totalThreeElement.classList.remove("warning");
+  totalThreeElement.classList.remove("danger");
+}
 }
 radioBillAddButtonElement.addEventListener('click', radioSettingsBill);

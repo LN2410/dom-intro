@@ -9,11 +9,12 @@ var callsTotalTwo = 0;
 var smsTotalTwo = 0;
 //add an event listener for when the add button is pressed
   function radioBill() {
+    console.log(radioBill);
     var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
     if (checkedRadioBtn){
-        var billItemType = checkedRadioBtn.value
+        var billItemType = checkedRadioBtn.value;
         if (billItemType === "call"){
-            callsTotalTwo += 2.75
+            callsTotalTwo += 2.75;
         }
         else if (billItemType === "sms"){
             smsTotalTwo += 0.75;
