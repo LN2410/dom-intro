@@ -29,7 +29,7 @@ function radioBillCalc (billItemType){
   return {
     bill2 : radioBillCalc,
     callBill2 : getCall2,
-    smsBill2 : getCall2,
+    smsBill2 : getSms2,
     totalBill2 : getTotal2
   }
   }

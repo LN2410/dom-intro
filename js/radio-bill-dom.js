@@ -19,14 +19,18 @@ var radioBillAddBtnElement = document.querySelector(".radioBillAddBtn");
     callTotalTwoElement.innerHTML = factoryObject2.callBill2().toFixed(2);
     smsTotalTwoElement.innerHTML = factoryObject2.smsBill2().toFixed(2);
     totalTwoElement.innerHTML = factoryObject2.totalBill2().toFixed(2);
-
+}
  // color change
- if (addBill >= 50.00){
+ function color(){
+ if (factoryObject2.totalBill2() >= 50.00){
     totalTwoElement.classList.add("danger");
  }
- else if (addBill >= 30.00){
+ else if (factoryObject2.totalBill2() >= 30.00){
     totalTwoElement.classList.add("warning");
  }
 }
-radioBillAddBtnElement.addEventListener('click', addBill);
+radioBillAddBtnElement.addEventListener('click', function(){
+  addBill();
+  color();
+});
 });
