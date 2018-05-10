@@ -1,33 +1,30 @@
-function textBillTotal(){
+function TextBillFunc(){
   var total = 0;
   var callsTotal = 0;
   var smsTotal = 0;
 
-function call(billTypeEntered){
-  if (billTypeEntered === "call"){
+  function billCalculator(billTypeEntered){
+    if (billTypeEntered === "call"){
       callsTotal += 2.75
-  }
-}
-function getCall(billTypeEntered){
-  return callsTotal;
-}
-function sms(billTypeEntered){
-  if (billTypeEntered === "sms"){
+    }else if (billTypeEntered === "sms"){
       smsTotal += 0.75;
+    }
+    total = callsTotal + smsTotal;
   }
-}
-function getSms(billTypeEntered){
-  return smsTotal;
-}
-function functotal(){
-  return total = callsTotal + smsTotal;
-}
-return {
-   call,
-   getCall,
-   sms,
-   getSms,
-   functotal
-}
+  function getCall(){
+    return callsTotal;
+  }
+  function getSms(){
+    return smsTotal;
+  }
+  function getTotal(){
+    return total;
+  }
 
+  return {
+    bill : billCalculator,
+    callBill : getCall,
+    smsBill : getSms,
+    totalBill : getTotal
+  }
 }

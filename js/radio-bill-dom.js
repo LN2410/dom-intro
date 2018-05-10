@@ -1,35 +1,32 @@
+document.addEventListener('DOMContentLoaded',function(){
 // get a reference to the sms or call radio buttons
 var callTotalTwoElement = document.querySelector(".callTotalTwo");
 var smsTotalTwoElement = document.querySelector(".smsTotalTwo");
 var totalTwoElement = document.querySelector(".totalTwo");
 //get a reference to the add button
 var radioBillAddBtnElement = document.querySelector(".radioBillAddBtn");
-//create a variable that will keep track of the total bill
-var callsTotalTwo = 0;
-var smsTotalTwo = 0;
-//add an event listener for when the add button is pressed
-  function radioBill() {
-    console.log(radioBill);
+
+// Creating an instance of the Text Bill Factory function
+  var factoryObject2 = RadioBillFunc();
+
+  function addBill(){
+
     var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
     if (checkedRadioBtn){
         var billItemType = checkedRadioBtn.value;
-        if (billItemType === "call"){
-            callsTotalTwo += 2.75;
-        }
-        else if (billItemType === "sms"){
-            smsTotalTwo += 0.75;
-        }
-    }
-    callTotalTwoElement.innerHTML = callsTotalTwo.toFixed(2);
-    smsTotalTwoElement.innerHTML = smsTotalTwo.toFixed(2);
-    var totalCostTwo = smsTotalTwo + callsTotalTwo;
-    totalTwoElement.innerHTML = totalCostTwo.toFixed(2);
+    factoryObject2.bill2(billItemType)
+}
+    callTotalTwoElement.innerHTML = factoryObject2.callBill2().toFixed(2);
+    smsTotalTwoElement.innerHTML = factoryObject2.smsBill2().toFixed(2);
+    totalTwoElement.innerHTML = factoryObject2.totalBill2().toFixed(2);
+
  // color change
- if (totalCostTwo >= 50.00){
+ if (addBill >= 50.00){
     totalTwoElement.classList.add("danger");
  }
- else if (totalCostTwo >= 30.00){
+ else if (addBill >= 30.00){
     totalTwoElement.classList.add("warning");
  }
-  }
-radioBillAddBtnElement.addEventListener('click', radioBill);
+}
+radioBillAddBtnElement.addEventListener('click', addBill);
+});

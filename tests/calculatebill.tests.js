@@ -1,4 +1,4 @@
-  describe('should calculate the total phone bill for the string entered',function(){
+  describe('the Calculate Bill Widget',function(){
 
     it('should return the total bill for two calls and three smses', function(){
         assert.equal(calculateBtnClicked('call, sms, call, sms, sms'),7.75);
