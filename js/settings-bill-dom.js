@@ -12,68 +12,60 @@ var radioBillAddButtonElement = document.querySelector(".radioBillAddButton");
 //get a reference to the 'Update settings' button
 var updateSettingsElement = document.querySelector(".updateSettings")
 // create a variables that will keep track of all the settings
-var callCost = 0;
-var smsCost = 0;
-var warningLevel = 0;
-var criticalLevel = 0;
-// create a variables that will keep track of all three totals.
-var callCostTotal = 0;
-var smsCostTotal = 0;
-var totalCostThree = 0;
 //add an event listener for when the 'Update settings' button is pressed
+var factoryObject3 = SettingsBillFunc();
+
 function billSettings() {
+
   var textboxcall = callCostSettingElement.value;
   var textboxsms = smsCostSettingElement.value;
   var textboxwarning = warningLevelSettingElement.value;
   var textboxcritical = criticalLevelSettingElement.value;
 
-  callCost = parseFloat(textboxcall);
-  smsCost = parseFloat(textboxsms);
-  warningLevel = parseFloat(textboxwarning);
-  criticalLevel = parseFloat(textboxcritical);
+  factoryObject3.setCallCost(textboxcall);
+  factoryObject3.setSmsCost(textboxsms);
+  factoryObject3.setCriticalLevel(textboxcritical);
+  factoryObject3.setWarningLevel(textboxwarning);
 
-  if (totalCostThree <= criticalLevel) {
-    totalThreeElement.classList.remove("danger");
-    radioBillAddButtonElement.disabled = false;
-  }
-  if (totalCostThree <= warningLevel) {
-    totalThreeElement.classList.remove("warning");
-  }
+  // if (totalCostThree <= criticalLevel) {
+  //   totalThreeElement.classList.remove("danger");
+  //   radioBillAddButtonElement.disabled = false;
+  // }
+  // if (totalCostThree <= warningLevel) {
+  //   totalThreeElement.classList.remove("warning");
+  // }
+
 }
-updateSettingsElement.addEventListener('click',billSettings)
+updateSettingsElement.addEventListener('click', billSettings)
 //add an event listener for when the add button is pressed
+
 function radioSettingsBill() {
+
+  if (factoryObject3.reachedCriticalLevel()){
+    return;
+  }
+
+  totalThreeElement.classList.remove("warning");
+  totalThreeElement.classList.remove("danger");
+
   var checkedRadio = document.querySelector("input[name='billItemTypeWithSettings']:checked");
-  if (checkedRadio){
-    var billType = checkedRadio.value}
+  //if (checkedRadio){
+  var billType = checkedRadio.value
+  //}
+  factoryObject3.bill3(billType);
 
+  callTotalThreeElement.innerHTML = factoryObject3.callBill3().toFixed(2);
+  smsTotalThreeElement.innerHTML = factoryObject3.smsBill3().toFixed(2);
+  totalThreeElement.innerHTML = factoryObject3.totalBill3().toFixed(2);
 
-    if (totalCostThree >= criticalLevel) {
-
-    }
-    else {
-
-      if (billType === "call"){
-          callCostTotal += callCost;
-      }
-      else if (billType === "sms"){
-          smsCostTotal += smsCost;
-      }
-    }
-    callTotalThreeElement.innerHTML = callCostTotal.toFixed(2);
-    smsTotalThreeElement.innerHTML = smsCostTotal.toFixed(2);
-    var totalCostThree = smsCostTotal + callCostTotal;
-    totalThreeElement.innerHTML = totalCostThree.toFixed(2);
-// color change
-if (totalCostThree >= criticalLevel) {
-  totalThreeElement.classList.add("danger");
- radioBillAddButtonElement.disabled = true;
-}
-else if (totalCostThree >= warningLevel) {
-  totalThreeElement.classList.add("warning");
-}
-// else {
-//   radioBillAddButtonElement.disabled = false;
-// }
+  // color change
+  if (factoryObject3.reachedWarningLevel()) {
+    totalThreeElement.classList.add("warning");
+  } else if (factoryObject3.reachedCriticalLevel()) {
+    totalThreeElement.classList.add("danger");
+  }
+  // else {
+  //   radioBillAddButtonElement.disabled = false;
+  // }
 }
 radioBillAddButtonElement.addEventListener('click', radioSettingsBill);

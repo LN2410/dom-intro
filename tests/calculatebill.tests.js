@@ -6,6 +6,9 @@
     it('should return the total bill for two smses and one call', function(){
         assert.equal(calculateBtnClicked('call, sms, sms'),4.25);
     });
+    it('should return the total bill for one smses and one call', function(){
+        assert.equal(calculateBtnClicked('call, sms'),3.5);
+    });
     it('should return the total if no data has been provided', function(){
         assert.equal(calculateBtnClicked(''),0.00);
     });
