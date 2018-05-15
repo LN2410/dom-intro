@@ -59,9 +59,10 @@ function radioSettingsBill() {
   totalThreeElement.innerHTML = factoryObject3.totalBill3().toFixed(2);
 
   // color change
-  if (factoryObject3.reachedWarningLevel()) {
+  if(factoryObject3.reachedWarningLevel()) {
     totalThreeElement.classList.add("warning");
-  } else if (factoryObject3.reachedCriticalLevel()) {
+  }
+  else if (factoryObject3.reachedCriticalLevel()) {
     totalThreeElement.classList.add("danger");
   }
   // else {

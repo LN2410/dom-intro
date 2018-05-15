@@ -8,6 +8,9 @@ describe('Settings Bill Widget',function(){
     settings.setCriticalLevel(20);
     settings.bill3('call');
     assert.equal(settings.callBill3(),2.00);
+    assert.equal(settings.totalBill3(),2.00);
+    assert.equal(settings.reachedWarningLevel(),false);
+    assert.equal(settings.reachedCriticalLevel(),false);
   });
   it('when the user updates sms to 1.50 and sets the criticalLevel to 20 and the warningLevel to 10, when the update button is pressed then all totals should be updated when the user selects call.', function(){
     var settings = SettingsBillFunc();
@@ -15,20 +18,25 @@ describe('Settings Bill Widget',function(){
     settings.setWarningLevel(10);
     settings.setCriticalLevel(20);
     settings.bill3('sms');
-    assert.equal(settings.smsBill3(),1.50)
+    assert.equal(settings.smsBill3(),1.50);
+    assert.equal(settings.totalBill3(),1.50);
+    assert.equal(settings.reachedWarningLevel(),false);
+    assert.equal(settings.reachedCriticalLevel(),false);
   });
   it('when the user updates sms to 3.50 , call to 0 and sets the criticalLevel to 40 and the warningLevel to 20, when the update button is pressed then should add nothing for calls when call is selected',function(){
 
     var settings = SettingsBillFunc();
     settings.setSmsCost(3.50);
     settings.setCallCost(0.00);
-    settings.setWarningLevel(20);
-    settings.setCriticalLevel(40);
+    settings.setWarningLevel(2);
+    settings.setCriticalLevel(4);
     settings.bill3('sms');
     assert.equal(settings.smsBill3(),3.50);
-
     settings.bill3('call');
     assert.equal(settings.callBill3(),0);
+    assert.equal(settings.totalBill3(),3.50);
+    assert.equal(settings.reachedWarningLevel(),true);
+    assert.equal(settings.reachedCriticalLevel(),false);
   });
   it('when the user updates call and sms to 0 and sets the criticalLevel to 40 and the warningLevel to 20, when the update button is pressed then should add nothing for both calls and sms when call or sms is selected',function(){
 
@@ -42,5 +50,50 @@ describe('Settings Bill Widget',function(){
 
     settings.bill3('call');
     assert.equal(settings.callBill3(),0);
+  });
+  it('should be able to count till warningLevel = 10 when there are eleven calls at 2.00 and two smses at 0.75',function(){
+    var settings = SettingsBillFunc();
+
+    settings.setCallCost(2.00);
+    settings.setSmsCost(0.75);
+    settings.setWarningLevel(20);
+    settings.setCriticalLevel(30);
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('sms');
+    settings.bill3('sms');
+
+    assert.equal(settings.callBill3(),22.00);
+    assert.equal(settings.smsBill3(),1.50);
+    assert.equal(settings.totalBill3(),23.50);
+    assert.equal(settings.reachedWarningLevel(),true);
+    assert.equal(settings.reachedCriticalLevel(),false);
+  });
+  it('should be able to count till criticalLevel = 20 when there are five calls at 2.00 and two smses at 0.75',function(){
+    var settings = SettingsBillFunc();
+
+    settings.setCallCost(2.00);
+    settings.setSmsCost(0.75);
+    settings.setCriticalLevel(20);
+
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('sms');
+    settings.bill3('sms');
+
+    assert.equal(settings.reachedWarningLevel(),true);
+    assert.equal(settings.reachedCriticalLevel(),false);
   });
 });
