@@ -79,7 +79,7 @@ describe('Settings Bill Widget',function(){
     assert.equal(settings.reachedWarningLevel(),true);
     assert.equal(settings.reachedCriticalLevel(),false);
   });
-  it('should be able to count till criticalLevel = 5 and warningLevel = 2 when there are five calls at 2.00 and two smses at 0.75',function(){
+  it('should be able to count till criticalLevel = 3 when there are five calls at 2.00 and two smses at 0.75',function(){
     var settings = SettingsBillFunc();
 
     settings.setCallCost(1.00);
