@@ -84,7 +84,6 @@ describe('Settings Bill Widget',function(){
 
     settings.setCallCost(1.00);
     settings.setSmsCost(0.75);
-    settings.setWarningLevel(2);
     settings.setCriticalLevel(3);
 
     settings.bill3('call');
@@ -96,5 +95,17 @@ describe('Settings Bill Widget',function(){
     assert.equal(settings.smsBill3(),1.50);
     assert.equal(settings.totalBill3(),3.50);
     assert.equal(settings.reachedCriticalLevel(),true);
+
+    settings.setCriticalLevel(10);
+
+    settings.bill3('call');
+    settings.bill3('call');
+    settings.bill3('sms');
+    settings.bill3('sms');
+
+    assert.equal(settings.callBill3(),4.00);
+    assert.equal(settings.smsBill3(),3.00);
+    assert.equal(settings.totalBill3(),7.00);
+    assert.equal(settings.reachedCriticalLevel(),false);
   });
 });
