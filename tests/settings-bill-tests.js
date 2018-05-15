@@ -23,7 +23,7 @@ describe('Settings Bill Widget',function(){
     assert.equal(settings.reachedWarningLevel(),false);
     assert.equal(settings.reachedCriticalLevel(),false);
   });
-  it('when the user updates sms to 3.50 , call to 0 and sets the criticalLevel to 40 and the warningLevel to 20, when the update button is pressed then should add nothing for calls when call is selected',function(){
+  it('when the user updates sms to 3.50 , call to 0 and sets the criticalLevel to 4 and the warningLevel to 2, when the update button is pressed then should add nothing for calls when call is selected',function(){
 
     var settings = SettingsBillFunc();
     settings.setSmsCost(3.50);
@@ -51,7 +51,7 @@ describe('Settings Bill Widget',function(){
     settings.bill3('call');
     assert.equal(settings.callBill3(),0);
   });
-  it('should be able to count till warningLevel = 10 when there are eleven calls at 2.00 and two smses at 0.75',function(){
+  it('should be able to count till warningLevel = 11 when there are eleven calls at 2.00 and two smses at 0.75',function(){
     var settings = SettingsBillFunc();
 
     settings.setCallCost(2.00);
