@@ -44,7 +44,7 @@ function SettingsBillFunc() {
   }
 
   function reachedWarningLevel(){
-    return (totalCostThree > warningLevel && totalCostThree < criticalLevel);
+    return totalCostThree > warningLevel && totalCostThree < criticalLevel;
   }
 
   function reachedCriticalLevel(){

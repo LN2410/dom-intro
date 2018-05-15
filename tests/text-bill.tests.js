@@ -1,6 +1,7 @@
 describe('the Text-bill Widget',function(){
   it('should add the calls when the string call is entered', function(){
     var calltot = TextBillFunc();
+
     calltot.bill('call');
     assert.equal(calltot.callBill(),2.75);
   });
@@ -13,3 +14,4 @@ describe('the Text-bill Widget',function(){
     assert.notEqual(TextBillFunc())
   });
 });
+  

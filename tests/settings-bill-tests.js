@@ -51,7 +51,7 @@ describe('Settings Bill Widget',function(){
     settings.bill3('call');
     assert.equal(settings.callBill3(),0);
   });
-  it('should be able to count till warningLevel = 11 when there are eleven calls at 2.00 and two smses at 0.75',function(){
+  it('should be able to count till warningLevel = 10 when there are eleven calls at 2.00 and two smses at 0.75',function(){
     var settings = SettingsBillFunc();
 
     settings.setCallCost(2.00);
@@ -75,25 +75,26 @@ describe('Settings Bill Widget',function(){
     assert.equal(settings.callBill3(),22.00);
     assert.equal(settings.smsBill3(),1.50);
     assert.equal(settings.totalBill3(),23.50);
+
     assert.equal(settings.reachedWarningLevel(),true);
     assert.equal(settings.reachedCriticalLevel(),false);
   });
-  it('should be able to count till criticalLevel = 20 when there are five calls at 2.00 and two smses at 0.75',function(){
+  it('should be able to count till criticalLevel = 5 and warningLevel = 2 when there are five calls at 2.00 and two smses at 0.75',function(){
     var settings = SettingsBillFunc();
 
-    settings.setCallCost(2.00);
+    settings.setCallCost(1.00);
     settings.setSmsCost(0.75);
-    settings.setCriticalLevel(20);
+    settings.setWarningLevel(2);
+    settings.setCriticalLevel(3);
 
-    settings.bill3('call');
-    settings.bill3('call');
-    settings.bill3('call');
     settings.bill3('call');
     settings.bill3('call');
     settings.bill3('sms');
     settings.bill3('sms');
 
-    assert.equal(settings.reachedWarningLevel(),true);
-    assert.equal(settings.reachedCriticalLevel(),false);
+    assert.equal(settings.callBill3(),2.00);
+    assert.equal(settings.smsBill3(),1.50);
+    assert.equal(settings.totalBill3(),3.50);
+    assert.equal(settings.reachedCriticalLevel(),true);
   });
 });
